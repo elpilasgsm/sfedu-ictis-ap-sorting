@@ -8,9 +8,15 @@ using namespace std;
 //utilities algs
 int *newArrayFromTemplate(const int *arr, int size);
 
+int testResult(const int *expected, const int *current, int size);
+
 void *printArray(const int *arr, int size);
 
 void swap(int *a1, int *a2);
+
+// Function to perform a test
+int performTest(int testData[], int expectedData[], int testDataSize, const char *algName,
+                void(*sortAlg)(int *arr, int size));
 
 //Sorting algs
 void quickSort(int *arr, int size);
@@ -21,9 +27,6 @@ void insertionSort(int *arr, int size);
 
 void bubbleSort(int *arr, int size);
 
-// Function to perform a test
-int performTest(int testData[], int expectedData[], int testDataSize, const char *algName,
-                void(*sortAlg)(int *arr, int size));
 /**
  * Implementation of QuickSort
  */
@@ -32,25 +35,16 @@ namespace QuickSortNS {
 
     void quicksort(int *arr, int low, int high);
 
-    void quicksort(int *arr, int low, int high) {
-        if (low < high) {
-            int p = partitioning(arr, low, high);
-            quicksort(arr, low, p - 1);
-            quicksort(arr, p + 1, high);
-        }
+    //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
+    int partitioning(int *arr, int lo, int hi) {
+        //PUT YOUR CODE HERE
     }
 
-    int partitioning(int *arr, int lo, int hi) {
-        int p = arr[hi];
-        int i = lo - 1;
-        for (int j = lo; j < hi; j++) {
-            if (arr[j] < p) {
-                swap(&arr[j], &arr[++i]);
-            }
-        }
-        swap(&arr[i + 1], &arr[hi]);
-        return i + 1;
+    //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
+    void quicksort(int *arr, int low, int high) {
+        //PUT YOUR CODE HERE
     }
+
 }
 
 
@@ -58,38 +52,21 @@ namespace QuickSortNS {
  * Implementation of Selection Sort
  */
 namespace SelectionSortNS {
+    int *min(int *arr, int from, int to);
+
+    void sort(int *arr, int size);
+
+    //TODO Implement function to find address of the minimum element of the array in the range [from, to]
     int *min(int *arr, int from, int to) {
-        int *minA = nullptr;
-        for (int i = from; i < to; i++) {
-            if (minA == nullptr || arr[i] < *minA) {
-                minA = &arr[i];
-            }
-        }
-        return minA;
+        //PUT YOUR CODE HERE
     }
 
+    //TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
     void sort(int *arr, int size) {
-        for (int i = 0; i < size; i++) {
-            int *minA = min(arr, i, size);
-            swap(&arr[i], minA);
-        }
+        //PUT YOUR CODE HERE
     }
-}
 
-void insertionSort(int arr[], int size) {
-    int i, key, j;
-    for (i = 1; i < size; i++) {
-        key = arr[i];
-        j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-        arr[j + 1] = key;
-    }
 }
-
-int testResult(const int *expected, const int *current, int size);
 
 int testResult(const int *expected, const int *current, int size) {
     int retVal = 0;
@@ -129,14 +106,14 @@ void swap(int *a1, int *a2) {
     *a2 = tmp;
 }
 
+//TODO implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
 void bubbleSort(int *arr, int size) {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(&arr[j], &arr[j + 1]);
-            }
-        }
-    }
+//PUT YOUR CODE HERE
+}
+
+//TODO implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort
+void insertionSort(int *arr, int size) {
+//PUT YOUR CODE HERE
 }
 
 void quickSort(int *arr, int size) {
