@@ -33,6 +33,12 @@ jobs:
         # Execute
         run: ${{github.workspace}}/build/sfedu_ictis_ap_sorting
 
+      - name: Draw Charts
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - run: pip install numpy matplotlib; python draw.py
+
       - name: Archive Data
         uses: actions/upload-artifact@v2
         with:
@@ -43,9 +49,3 @@ jobs:
 
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
-
-      - name: Draw Charts
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
-      - run: pip install numpy matplotlib; python draw.py
