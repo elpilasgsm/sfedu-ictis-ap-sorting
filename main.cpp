@@ -2,6 +2,7 @@
 #include <fstream>
 #include <chrono>
 #include <stdlib.h>
+#include "test.h"
 
 
 using namespace std;
@@ -207,9 +208,6 @@ void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int s
 }
 
 int main() {
-    int TEST_ARRAY[] = {4, 2, 1, 5, 1, 6, 1, 3, 5, 6, 8, 9, 12, 66, 11, 6, 22, 123, 0, 98};
-    int CHECK_ARRAY[] = {0, 1, 1, 1, 2, 3, 4, 5, 5, 6, 6, 6, 8, 9, 11, 12, 22, 66, 98, 123};
-    const int TEST_ARRAY_SIZE = 20;
     int TEST_SERIES_SIZE[] = {10, 100, 500, 1000, 5000, 10000, 50000, 100000};
     int TEST_SERIES_NUM = 8;
 
