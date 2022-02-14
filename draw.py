@@ -10,10 +10,10 @@ plt.title("Compare sorting algorithms")
 plt.xlabel("Array size, items")
 plt.ylabel("Time, microseconds")
 
-plt.plot(Bubble['x'], Bubble['y'], "Bubble Sort")
-plt.plot(Insertion['x'], Insertion['y'], "Insertion Sort")
-plt.plot(Selection['x'], Selection['y'], "Selection Sort")
-plt.plot(Quick['x'], Quick['y'], "Quick Sort")
+plt.plot(Bubble['x'], Bubble['y'], label="Bubble Sort")
+plt.plot(Insertion['x'], Insertion['y'], label="Insertion Sort")
+plt.plot(Selection['x'], Selection['y'], label="Selection Sort")
+plt.plot(Quick['x'], Quick['y'], label="Quick Sort")
 
 plt.legend(loc="upper left")
 
