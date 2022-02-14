@@ -37,7 +37,15 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: execution-results
-          path: ./*.csv
+          path: |
+            ./*.csv
+            ./*.png
 
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
+
+      - name: Draw Charts
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - run: pip install numpy matplotlib; python draw.py
