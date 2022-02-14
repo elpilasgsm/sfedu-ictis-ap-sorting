@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include <chrono>
+#include <stdlib.h>
 
 
 using namespace std;
@@ -83,17 +85,28 @@ void swap(int *a1, int *a2) {
 
 //TODO implement method to generate Test Array
 int *generateTestArray(int size) {
-    //PUT YOUR CODE HERE
+    int *a = new int[size];
+    for (int i = 0; i < size; i++) {
+        a[i] = rand() % size;
+    }
+    return a;
 }
 
 //TODO implement a function to cleanup file before saving data there.
 void cleanupFile(const char *algName) {
-    //PUT YOUR CODE HERE
+    ofstream myfile;
+    myfile.open(algName);
+    myfile.clear();
+    myfile.close();
+
 }
 
 //TODO add timing about alg execution time to corresponding file based on algName
 void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS) {
-    //PUT YOUR CODE HERE
+    ofstream myfile;
+    myfile.open(algName, ios::app);
+    myfile << arrSize << ", " << timeMS << endl;
+    myfile.close();
 }
 
 //TODO implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
@@ -116,12 +129,20 @@ namespace SelectionSortNS {
 
     //TODO Implement function to find address of the minimum element of the array in the range [from, to]
     int *min(int *arr, int from, int to) {
-        //PUT YOUR CODE HERE
+        int *minA = &arr[from];
+        for (int i = from + 1; i < to; i++) {
+            if (*minA > arr[i]) {
+                minA = &arr[i];
+            }
+        }
+        return minA;
     }
 
     //TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
     void sort(int *arr, int size) {
-        //PUT YOUR CODE HERE
+        for (int i = 0; i < size; i++) {
+            swap(&arr[i], min(arr, i, size));
+        }
     }
 
 }
@@ -180,7 +201,7 @@ void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int s
         sortAlg(arr, sizeOfArray);
         deleteArr(arr);
         time_point<system_clock> stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
+        auto duration = duration_cast<microseconds>(stop - start);
         saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
     }
 }
@@ -193,18 +214,12 @@ int main() {
     int TEST_SERIES_NUM = 8;
 
     int result = 0;
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Bubble", bubbleSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Insertion", insertionSort);
     result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Selection", selectionSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Quick", quickSort);
+
     if (result > 0) {
         return result;
     }
-    //Here is performance test with data collection.
-    performanceTestExecutor("Bubble", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Insertion", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Selection", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Quick", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
 
+    performanceTestExecutor("Selection", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
     return 0;
 }
