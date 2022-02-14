@@ -11,9 +11,9 @@ using namespace std::chrono;
 void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
                              int numOfSeries);
 
-void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS);
+void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS);
 
-void cleanupFile(const char *algName);
+void cleanupFile(const char *fileName);
 
 int *newArrayFromTemplate(const int *arr, int size);
 
@@ -93,18 +93,18 @@ int *generateTestArray(int size) {
 }
 
 //TODO implement a function to cleanup file before saving data there.
-void cleanupFile(const char *algName) {
+void cleanupFile(const char *fileName) {
     ofstream myfile;
-    myfile.open(algName);
+    myfile.open(fileName);
     myfile.clear();
     myfile.close();
 
 }
 
-//TODO add timing about alg execution time to corresponding file based on algName
-void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS) {
+//TODO add timing about alg execution time to corresponding file based on fileName
+void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     ofstream myfile;
-    myfile.open(algName, ios::app);
+    myfile.open(fileName, ios::app);
     myfile << arrSize << ", " << timeMS << endl;
     myfile.close();
 }
@@ -220,6 +220,6 @@ int main() {
         return result;
     }
 
-    performanceTestExecutor("Selection", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+    performanceTestExecutor("Selection.csv", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
     return 0;
 }
