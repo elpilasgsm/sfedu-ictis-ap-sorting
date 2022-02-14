@@ -2,8 +2,9 @@ name: CMake
 
 on:
   push:
-    branches:
-      - '*'
+    branches: [ template, demo ]
+  pull_request:
+    branches: [ template, demo ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -32,11 +33,19 @@ jobs:
         # Execute
         run: ${{github.workspace}}/build/sfedu_ictis_ap_sorting
 
-      - name: Collect Test Results
+      - name: Draw Charts
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - run: pip install numpy matplotlib; python draw.py
+
+      - name: Archive Data
         uses: actions/upload-artifact@v2
         with:
           name: execution-results
-          path: ./*.csv
+          path: |
+            ./*.csv
+            ./*.png
 
-      - name: Download all Test Results.
+      - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
