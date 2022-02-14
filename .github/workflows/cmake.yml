@@ -38,3 +38,6 @@ jobs:
         with:
           name: execution-results
           path: ${{github.workspace}}/build/*.txt
+
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
