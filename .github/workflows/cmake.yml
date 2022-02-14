@@ -29,3 +29,6 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
+    - name: Execute
+      # Execute
+      run: ${{github.workspace}}/build/sfedu_ictis_ap_sorting
