@@ -9,9 +9,9 @@ using namespace std::chrono;
 void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
                              int numOfSeries);
 
-void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS);
+void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS);
 
-void cleanupFile(const char *algName);
+void cleanupFile(const char *fileName);
 
 int *newArrayFromTemplate(const int *arr, int size);
 
@@ -87,12 +87,12 @@ int *generateTestArray(int size) {
 }
 
 //TODO implement a function to cleanup file before saving data there.
-void cleanupFile(const char *algName) {
+void cleanupFile(const char *fileName) {
     //PUT YOUR CODE HERE
 }
 
-//TODO add timing about alg execution time to corresponding file based on algName
-void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS) {
+//TODO add timing about alg execution time to corresponding file based on fileName
+void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     //PUT YOUR CODE HERE
 }
 
@@ -201,10 +201,10 @@ int main() {
         return result;
     }
     //Here is performance test with data collection.
-    performanceTestExecutor("Bubble", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Insertion", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Selection", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Quick", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+    performanceTestExecutor("Bubble.csv", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+    performanceTestExecutor("Insertion.csv", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+    performanceTestExecutor("Selection.csv", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+    performanceTestExecutor("Quick.csv", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
 
     return 0;
 }
