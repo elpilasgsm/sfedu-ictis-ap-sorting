@@ -32,3 +32,9 @@ jobs:
       - name: Execute
         # Execute
         run: ${{github.workspace}}/build/sfedu_ictis_ap_sorting
+
+      - name: Archive Data
+        uses: actions/upload-artifact@v2
+        with:
+          name: execution-results
+          path: ${{github.workspace}}/build/*.txt
