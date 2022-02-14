@@ -11,6 +11,8 @@ void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int s
 
 void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS);
 
+void cleanupFile(const char *algName);
+
 int *newArrayFromTemplate(const int *arr, int size);
 
 int testResult(const int *expected, const int *current, int size);
@@ -39,46 +41,6 @@ void insertionSort(int *arr, int size);
 
 void bubbleSort(int *arr, int size);
 
-/**
- * Implementation of QuickSort
- */
-namespace QuickSortNS {
-    int partitioning(int *arr, int lo, int hi);
-
-    void quicksort(int *arr, int low, int high);
-
-    //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
-    int partitioning(int *arr, int lo, int hi) {
-        //PUT YOUR CODE HERE
-    }
-
-    //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
-    void quicksort(int *arr, int low, int high) {
-        //PUT YOUR CODE HERE
-    }
-
-}
-
-
-/**
- * Implementation of Selection Sort
- */
-namespace SelectionSortNS {
-    int *min(int *arr, int from, int to);
-
-    void sort(int *arr, int size);
-
-    //TODO Implement function to find address of the minimum element of the array in the range [from, to]
-    int *min(int *arr, int from, int to) {
-        //PUT YOUR CODE HERE
-    }
-
-    //TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
-    void sort(int *arr, int size) {
-        //PUT YOUR CODE HERE
-    }
-
-}
 
 int testResult(const int *expected, const int *current, int size) {
     int retVal = 0;
@@ -124,23 +86,14 @@ int *generateTestArray(int size) {
     //PUT YOUR CODE HERE
 }
 
-//TODO add timing about alg execution time to corresponding file based on algName
-void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS) {
+//TODO implement a function to cleanup file before saving data there.
+void cleanupFile(const char *algName) {
     //PUT YOUR CODE HERE
 }
 
-void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
-                             int numOfSeries) {
-    for (int i = 0; i < numOfSeries; i++) {
-        int sizeOfArray = seriesSize[i];
-        time_point<system_clock> start = high_resolution_clock::now();
-        int *arr = generateTestArray(sizeOfArray);
-        sortAlg(arr, sizeOfArray);
-        deleteArr(arr);
-        time_point<system_clock> stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
-        saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
-    }
+//TODO add timing about alg execution time to corresponding file based on algName
+void saveExecutionTimeToFile(const char *algName, int arrSize, unsigned long timeMS) {
+    //PUT YOUR CODE HERE
 }
 
 //TODO implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
@@ -151,6 +104,45 @@ void bubbleSort(int *arr, int size) {
 //TODO implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort
 void insertionSort(int *arr, int size) {
 //PUT YOUR CODE HERE
+}
+
+/**
+ * Implementation of Selection Sort
+ */
+namespace SelectionSortNS {
+    int *min(int *arr, int from, int to);
+
+    void sort(int *arr, int size);
+
+    //TODO Implement function to find address of the minimum element of the array in the range [from, to]
+    int *min(int *arr, int from, int to) {
+        //PUT YOUR CODE HERE
+    }
+
+    //TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
+    void sort(int *arr, int size) {
+        //PUT YOUR CODE HERE
+    }
+
+}
+
+/**
+ * Implementation of QuickSort
+ */
+namespace QuickSortNS {
+    int partitioning(int *arr, int lo, int hi);
+
+    void quicksort(int *arr, int low, int high);
+
+    //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
+    int partitioning(int *arr, int lo, int hi) {
+        //PUT YOUR CODE HERE
+    }
+
+    //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
+    void quicksort(int *arr, int low, int high) {
+        //PUT YOUR CODE HERE
+    }
 }
 
 void quickSort(int *arr, int size) {
@@ -175,6 +167,21 @@ int performTest(int testData[], int expectedData[], int testDataSize, const char
     } else {
         cout << "[OK] " << algName << " passed Successfully" << endl;
         return 0;
+    }
+}
+
+void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
+                             int numOfSeries) {
+    cleanupFile(algName);
+    for (int i = 0; i < numOfSeries; i++) {
+        int sizeOfArray = seriesSize[i];
+        time_point<system_clock> start = high_resolution_clock::now();
+        int *arr = generateTestArray(sizeOfArray);
+        sortAlg(arr, sizeOfArray);
+        deleteArr(arr);
+        time_point<system_clock> stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+        saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
     }
 }
 
