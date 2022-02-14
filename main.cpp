@@ -70,7 +70,6 @@ void deleteArr(const int *arr) {
     delete[] arr;
 }
 
-
 void swap(int *a1, int *a2) {
     if (a1 == nullptr || a2 == nullptr || a1 == a2) {
         return;
