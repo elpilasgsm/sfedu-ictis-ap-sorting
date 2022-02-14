@@ -60,7 +60,7 @@ int *newArrayFromTemplate(const int *arr, const int size) {
 
 void *printArray(const int *arr, const int size) {
     for (int i = 0; i < size; i++) {
-        cout << arr[i] << ", ";
+        cout << arr[i] << ",";
     }
     cout << endl;
     return nullptr;
