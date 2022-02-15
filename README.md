@@ -28,8 +28,10 @@ and [GitHub](https://github.com/) at all.
 Login to the [GitHub](https://github.com/) with own account.
 Please [register](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
 Account at github.com using your university account if you don't have such yet. Navigate
-to [this project](https://github.com/elpilasgsm/sfedu-ictis-ap-sorting) and click Fork in the top right corner. The
+to [this project](https://github.com/elpilasgsm/sfedu-ictis-ap-sorting) and click ![Fork](imgs/fork-btn.png) in the top right corner. The
 central repository will be cloned to your account. Clone your forked repository to your computer. 
+
+More about Fork you can read [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo): 
 
 #### 2. Coding
 
