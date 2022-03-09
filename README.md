@@ -68,8 +68,11 @@ Push your code to the remote repository (origin). The following approaches can b
 After click 'Ctrl' + 'Shift' + 'K' and click 'Push' button.
 
 Your code will be uploaded to the remote server where automatic tests will be run. 
-You can find the results at the ![actions](./imgs/actions.png) page.
-
+You can find the results of the performed tests at the ![actions](./imgs/actions.png) page. If the latest workflow in 'green'
+than your code passed all tests and lab is done properly, otherwise you should change the code. 
 
 #### 4. Collect Results
  
+Click at the latest 'green' workflow at the 'Actions' page. Scroll down to the 'Artifacts' group. In the 'Artifacts' group
+you will find 'execution-results' package (clickable). Click it to retrieve the results. The zip file contains 3 csv files with
+execution time and the png file with the graph that you should include to the Lab report. 
