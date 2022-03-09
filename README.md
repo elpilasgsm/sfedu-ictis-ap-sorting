@@ -54,7 +54,18 @@ There is also
 placeholder in the code. You should write code only in these places. If required you can add more ```#include``` to the
 file, but the existed are enough to complete the task.
 
-There are 9 places where you should put the code.
+There are 9 functions that you should implement to complete the lab. 
+
+
+| # | Function | Description | Near line | 
+| --- | -------- | ----------- | --------- | 
+| 1. | int *generateTestArray(int size) | The function 'generateTestArray' should create new array with given #size and populate it with integer values. The function should return pointer to the newly created array. | 86 | 
+| 2. | void cleanupFile(const char *fileName) | The method should cleanup the content of the file, provided by fileName. | 93 | 
+| 3. | void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS)  | The function should save to the file, with name, provided by parameter *fileName the following information: size of the array, provided by parameter 'int arrSize', time of the sorting alg execution, provided by parameter 'unsigned long timeMS' | 99 | 
+| 4. | void bubbleSort(int *arr, int size)  | Implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort. Function should modify array provided by pointer *arr in a way, so the array elements will be ascending sorted by it's values | 107 | 
+| 5. | void insertionSort(int *arr, int size)  | implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort. Function should modify array provided by pointer *arr in a way, so the array elements will be ascending sorted by it's values | 112 | 
+| 6-7. | int *min(int *arr, int from, int to), void sort(int *arr, int size) |  implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort. Function should modify array provided by pointer *arr in a way, so the array elements will be ascending sorted by it's values | 125,130 | 
+| 8-9. | int partitioning(int *arr, int lo, int hi), void quicksort(int *arr, int low, int high) |  Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort. Function should modify array provided by pointer *arr in a way, so the array elements will be ascending sorted by it's values | 145,150 | 
 
 #### 3. Validate code
 
