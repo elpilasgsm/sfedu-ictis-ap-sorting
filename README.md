@@ -43,7 +43,7 @@ More about Fork you can read [here](https://docs.github.com/en/get-started/quick
 
 #### 2. Coding
 
-In your forked project in the file [main.cpp](main.cpp#L87){:target="blank"} please implement methods market with
+In your forked project in the file [main.cpp](main.cpp#L87) please implement methods market with
 
 ```//TODO```
 
