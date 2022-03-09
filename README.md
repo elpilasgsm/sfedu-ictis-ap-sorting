@@ -43,7 +43,7 @@ More about Fork you can read [here](https://docs.github.com/en/get-started/quick
 
 #### 2. Coding
 
-In your forked project in the file [main.cpp](main.cpp#L87) please implement methods market with
+In your forked project in the file [main.cpp](main.cpp#L87){:target="blank"} please implement methods market with
 
 ```//TODO```
 
@@ -53,6 +53,8 @@ There is also
 
 placeholder in the code. You should write code only in these places. If required you can add more ```#include``` to the
 file, but the existed are enough to complete the task.
+
+There are 9 places where you should put the code.
 
 #### 3. Validate code
 
