@@ -64,6 +64,7 @@ Push your code to the remote repository (origin). The following approaches can b
     git commit -am "My code"
     git push 
 ```
-   - In CLion click click 'Ctrl' + 'K', fill the commit description and click 'Commit' button.
+   - In CLion click click 'Ctrl' + 'K', fill the commit description, choose changed files and click 'Commit' button. 
+After 
 
 #### 4. Collect Results
