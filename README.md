@@ -64,7 +64,12 @@ Push your code to the remote repository (origin). The following approaches can b
     git commit -am "My code"
     git push 
 ```
-   - In CLion click click 'Ctrl' + 'K', fill the commit description, choose changed files and click 'Commit' button. 
-After 
+   - In CLion  click 'Ctrl' + 'K', fill the commit description, choose changed files and click 'Commit' button. 
+After click 'Ctrl' + 'Shift' + 'K' and click 'Push' button.
+
+Your code will be uploaded to the remote server where automatic tests will be run. 
+You can find the results at the ![actions](./imgs/actions.png) page.
+
 
 #### 4. Collect Results
+ 
