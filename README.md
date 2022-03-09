@@ -87,5 +87,7 @@ than your code passed all tests and lab is done properly, otherwise you should c
 #### 4. Collect Results
  
 Click at the latest 'green' workflow at the 'Actions' page. Scroll down to the 'Artifacts' group. In the 'Artifacts' group
-you will find 'execution-results' package (clickable). Click it to retrieve the results. The zip file contains 3 csv files with
+you will find 'execution-results' package (clickable). 
+![results](./imgs/results.png)
+Click it to retrieve the results. The zip file contains 3 csv files with
 execution time and the png file with the graph that you should include to the Lab report. 
