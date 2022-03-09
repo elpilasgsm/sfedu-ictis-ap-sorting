@@ -23,15 +23,23 @@ Students should be familiar with  [Git](https://git-scm.com/) and [GitHub](https
 least [CS50's video](https://youtu.be/NcoBAfJ6l2Q) if you are not aware about [Git](https://git-scm.com/)
 and [GitHub](https://github.com/) at all.
 
+Extra information about Sorting algorithms can be found in [CS50 lecture](https://www.youtube.com/watch?v=eMb84U46FLw).
+
 #### 1. Prepare repository.
 
-Login to the [GitHub](https://github.com/) with own account.
-Please [register](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
+1. Login to the [GitHub](https://github.com/) with own account. Please [register](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
 Account at github.com using your university account if you don't have such yet. Navigate
 to [this project](https://github.com/elpilasgsm/sfedu-ictis-ap-sorting) and click ![Fork](imgs/fork-btn.png) in the top right corner. The
-central repository will be cloned to your account. Clone your forked repository to your computer. 
+central repository will be cloned to your account. Clone your forked repository to your computer.
+More about Fork you can read [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
+2. Clone repository to your local computer. Please be sure that you have [Git client](https://git-scm.com/downloads) installed at your computer. Install SSH key at your local machine and provide public key to the GitHub. See more information about Access Keys [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). There are following ways to clone project:
 
-More about Fork you can read [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo): 
+    - In the shell (terminal) run the following command:
+    ```shell
+    git clone git@github.com:***/sfedu-ictis-ap-sorting.git
+    ```
+    - Use CLion and [Get from VCS](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html).
+    - Use [Git For Windows](https://gitforwindows.org/) 
 
 #### 2. Coding
 
@@ -43,11 +51,19 @@ There is also
 
 ```//PUT YOUR CODE HERE```
 
-placeholder in the code. You should write code only in this places. If required you can add more ```#include``` to the
+placeholder in the code. You should write code only in these places. If required you can add more ```#include``` to the
 file, but the existed are enough to complete the task.
 
 #### 3. Validate code
 
-TODO
+Push your code to the remote repository (origin). The following approaches can be used:
+
+   - In the shell (terminal) run the following command:
+
+```shell
+    git commit -am "My code"
+    git push 
+```
+   - In CLion click click 'Ctrl' + 'K', fill the commit description and click 'Commit' button.
 
 #### 4. Collect Results
