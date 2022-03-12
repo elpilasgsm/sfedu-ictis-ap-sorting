@@ -83,29 +83,56 @@ void swap(int *a1, int *a2) {
 }
 
 
-//TODO implement method to generate Test Array
+//TOD implement method to generate Test Array
 int *generateTestArray(int size) {
-    //PUT YOUR CODE HERE
+    int *A = new int[size];
+    for (int i = 0; i < size; i++) {
+        A[i] = rand();
+    }
 }
 
-//TODO implement a function to cleanup file before saving data there.
+//TOD implement a function to cleanup file before saving data there.
 void cleanupFile(const char *fileName) {
-    //PUT YOUR CODE HERE
+    fstream file;
+    file.open(fileName);
+    file << "";
 }
 
-//TODO add timing about alg execution time to corresponding file based on fileName
+//TOD add timing about alg execution time to corresponding file based on fileName
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
-    //PUT YOUR CODE HERE
+    fstream file;
+    file.open(fileName);
+    file << timeMS;
 }
 
-//TODO implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
+//TOD implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
 void bubbleSort(int *arr, int size) {
-//PUT YOUR CODE HERE
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int tmp = arr[j + 1];
+                arr[j + 1] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+    }
 }
 
-//TODO implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort
+//TOD implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort
 void insertionSort(int *arr, int size) {
-//PUT YOUR CODE HERE
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1]) {
+            for (int j = i - 1; j >= 0; j--){
+                if (arr[i] > arr[j]) {
+                    int tmp = arr[i];
+                    for(int k = i; k<=j+1;k--){
+                        arr[i] = arr[i-1];
+                    }
+                    arr[j+1]=tmp;
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -138,7 +165,7 @@ namespace QuickSortNS {
 
     //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
     int partitioning(int *arr, int lo, int hi) {
-        //PUT YOUR CODE HERE
+
     }
 
     //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
