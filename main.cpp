@@ -170,87 +170,88 @@ namespace QuickSortNS {
 //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
     int partitioning(int *arr, int lo, int hi) {
         int pivot;
-        for(int lower = lo ,pivot = hi ; lower < pivot ;) {
-            if( arr[ lower ] < arr[ pivot ] ) {
+        for (int lower = lo, pivot = hi; lower < pivot;) {
+            if (arr[lower] < arr[pivot]) {
                 ++lower;
             } else {
-                swap( &arr[ pivot ] , &arr[ pivot - 1 ]) ;
-                if( pivot - 1 != lower ) {
+                swap(&arr[pivot], &arr[pivot - 1]);
+                if (pivot - 1 != lower) {
                     swap(&arr[pivot], &arr[lower]);
                 }
-                --pivot ;
+                --pivot;
             }
         }
-        return pivot ;
+        return pivot;
     }
 
 //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
-void quicksort(int *arr, int low, int high) {
-    int pivot ;
-    if( high - low < 1 ) {
-        return;
+    void quicksort(int *arr, int low, int high) {
+        int pivot;
+        if (high - low < 1) {
+            return;
+        }
+        pivot = partitioning(arr, low, high);
+        quicksort(arr, low, pivot - 1);
+        quicksort(arr, pivot + 1, high);
     }
-    pivot = partitioning( arr , low , high);
-    quicksort(arr , low , pivot - 1);
-    quicksort(arr , pivot + 1 , high);
-}
 
-void quickSort(int *arr, int size) {
-    QuickSortNS::quicksort(arr, 0, size - 1);
-}
+    void quickSort(int *arr, int size) {
+        QuickSortNS::quicksort(arr, 0, size - 1);
+    }
 
-void selectionSort(int *arr, int size) {
-    SelectionSortNS::sort(arr, size);
-}
+    void selectionSort(int *arr, int size) {
+        SelectionSortNS::sort(arr, size);
+    }
 
 
-int performTest(int testData[], int expectedData[], int testDataSize, const char *algName,
-                void(*sortAlg)(int *arr, int size)) {
-    int *arr = newArrayFromTemplate(testData, testDataSize);
-    sortAlg(arr, testDataSize);
-    int check = testResult((int *) expectedData, arr, testDataSize);
-    deleteArr(arr);
+    int performTest(int testData[], int expectedData[], int testDataSize, const char *algName,
+                    void(*sortAlg)(int *arr, int size)) {
+        int *arr = newArrayFromTemplate(testData, testDataSize);
+        sortAlg(arr, testDataSize);
+        int check = testResult((int *) expectedData, arr, testDataSize);
+        deleteArr(arr);
 
-    if (check != 0) {
-        cerr << "[FAIL] " << algName << " is incorrect. Number of errors " << check << endl;
-        return 1;
-    } else {
-        cout << "[OK] " << algName << " passed Successfully" << endl;
+        if (check != 0) {
+            cerr << "[FAIL] " << algName << " is incorrect. Number of errors " << check << endl;
+            return 1;
+        } else {
+            cout << "[OK] " << algName << " passed Successfully" << endl;
+            return 0;
+        }
+    }
+
+    void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
+                                 int numOfSeries) {
+        cleanupFile(algName);
+        for (int i = 0; i < numOfSeries; i++) {
+            int sizeOfArray = seriesSize[i];
+            time_point<system_clock> start = high_resolution_clock::now();
+            int *arr = generateTestArray(sizeOfArray);
+            sortAlg(arr, sizeOfArray);
+            deleteArr(arr);
+            time_point<system_clock> stop = high_resolution_clock::now();
+            auto duration = duration_cast<milliseconds>(stop - start);
+            saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
+        }
+    }
+
+    int main() {
+
+
+        int result = 0;
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Bubble", bubbleSort);
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Insertion", insertionSort);
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Selection", selectionSort);
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Quick", quickSort);
+        if (result > 0) {
+            return result;
+        }
+        //Here is performance test with data collection.
+        performanceTestExecutor("Bubble.csv", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+        performanceTestExecutor("Insertion.csv", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+        performanceTestExecutor("Selection.csv", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+        performanceTestExecutor("Quick.csv", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+
         return 0;
     }
-}
-
-void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
-                             int numOfSeries) {
-    cleanupFile(algName);
-    for (int i = 0; i < numOfSeries; i++) {
-        int sizeOfArray = seriesSize[i];
-        time_point<system_clock> start = high_resolution_clock::now();
-        int *arr = generateTestArray(sizeOfArray);
-        sortAlg(arr, sizeOfArray);
-        deleteArr(arr);
-        time_point<system_clock> stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
-        saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
-    }
-}
-
-int main() {
-
-
-    int result = 0;
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Bubble", bubbleSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Insertion", insertionSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Selection", selectionSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Quick", quickSort);
-    if (result > 0) {
-        return result;
-    }
-    //Here is performance test with data collection.
-    performanceTestExecutor("Bubble.csv", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Insertion.csv", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Selection.csv", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Quick.csv", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-
-    return 0;
 }
