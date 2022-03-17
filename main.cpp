@@ -86,9 +86,6 @@ void swap(int *a1, int *a2) {
 //TOD implement method to generate Test Array
 int *generateTestArray(int size) {
     int *A = new int[size];
-    for (int i = 0; i < size; i++) {
-        A[i] = rand();
-    }
 }
 
 //TOD implement a function to cleanup file before saving data there.
