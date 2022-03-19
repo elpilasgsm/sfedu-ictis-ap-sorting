@@ -103,7 +103,7 @@ void cleanupFile(const char *fileName) {
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     fstream file;
     file.open(fileName);
-    file << timeMS;
+    file << arrSize << "," << timeMS << "\n";
 }
 
 //TOD implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
