@@ -83,7 +83,9 @@ void swap(int *a1, int *a2) {
 }
 
 
-//TODO implement method to generate Test Array
+//TODO implement function to generate Test Array.
+// The function 'generateTestArray' should create new array with given #size and populate it with integer values.
+// The function should return pointer to the newly created array.
 int *generateTestArray(int size) {
     int *array = new int[size];
     for (int i = 0; i < size; i++) {
@@ -93,6 +95,7 @@ int *generateTestArray(int size) {
 }
 
 //TODO implement a function to cleanup file before saving data there.
+// The method should cleanup the content of the file, provided by fileName
 void cleanupFile(const char *fileName) {
     ofstream myfile;
     myfile.open(fileName);
@@ -100,7 +103,10 @@ void cleanupFile(const char *fileName) {
     myfile.close();
 }
 
-//TODO add timing about alg execution time to corresponding file based on fileName
+//TODO add timing about alg execution time to corresponding file based on *fileName
+// The function should save to the file, with name, provided by parameter *fileName the following information:
+// - size of the array, provided by parameter 'int arrSize'
+// - time of the sorting alg execution, provided by parameter 'unsigned long timeMS'
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     ofstream myfile;
     myfile.open(fileName, ios::app);
