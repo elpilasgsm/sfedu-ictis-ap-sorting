@@ -73,7 +73,7 @@ void deleteArr(const int *arr) {
     delete[] arr;
 }
 
-void swap(int *a1, int *a2) {
+void swapp(int *a1, int *a2) {
     if (a1 == nullptr || a2 == nullptr || a1 == a2) {
         return;
     }
@@ -125,7 +125,7 @@ void insertionSort(int *arr, int size) {
     while (i < size) {
         int j = 1;
         while (j > 0 && arr[j - 1] > arr[j]) {
-            swap(arr[j], arr[j - 1]);
+            swapp(&arr[j], &arr[j - 1]);
             j -= 1;
         }
         i += 1;
@@ -143,12 +143,22 @@ namespace SelectionSortNS {
 
     //TODO Implement function to find address of the minimum element of the array in the range [from, to]
     int *min(int *arr, int from, int to) {
-        //PUT YOUR CODE HERE
+        int *min;
+        min = &arr[from];
+        for (int f = from; f <= to; f++) {
+            if (arr[f] < *min) {
+                min = &arr[f];
+            }
+        }
+        return min;
     }
 
     //TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
     void sort(int *arr, int size) {
-        //PUT YOUR CODE HERE
+        for (int i = 0; i < size - 1; i++) {
+            int *mn = min(arr, i, size - 1);
+            swapp(mn, &arr[i]);
+        }
     }
 
 }
@@ -163,12 +173,29 @@ namespace QuickSortNS {
 
     //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
     int partitioning(int *arr, int lo, int hi) {
+        int p = arr[hi];
+        int i = (lo - 1);
 
+        for (int j = lo; j <= hi - 1; j++) {
+            if (arr[j] < p) {
+                i++;
+                swapp(&arr[i], &arr[j]);
+            }
+        }
+        swapp(&arr[i + 1], &arr[hi]);
+        return (i + 1);
     }
+
 
     //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
     void quicksort(int *arr, int low, int high) {
-        //PUT YOUR CODE HERE
+        {
+            if (low < high) {
+                int pi = QuickSortNS::partitioning(arr, low, high);
+                quicksort(arr, low, pi - 1);
+                quicksort(arr, pi + 1, high);
+            }
+        }
     }
 }
 
