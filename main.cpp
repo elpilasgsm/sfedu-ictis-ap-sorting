@@ -104,7 +104,7 @@ void cleanupFile(const char *fileName) {
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     ofstream myfile;
     myfile.open(fileName, ios::app);
-    myfile << arrSize << ", " << timeMS << endl;
+    myfile << arrSize << "," << timeMS << endl;
     myfile.close();
 
 }
@@ -138,10 +138,10 @@ namespace SelectionSortNS {
     void sort(int *arr, int size);
 
 //TODO Implement function to find address of the minimum element of the array in the range [from, to]
-int *min(int *arr, int from, int to, int size) {
+int *min(int *arr, int from, int to) {
     int min = INT32_MAX;
     int *minAddress = nullptr;
-    for (int i = from; i < size; i++) {
+    for (int i = from; i < to; i++) {
         if (min > arr[i]) {
             min = arr[i];
             minAddress = &arr[i];
