@@ -97,13 +97,15 @@ void cleanupFile(const char *fileName) {
     fstream file;
     file.open(fileName);
     file << "";
+    file.close();
 }
 
 //TOD add timing about alg execution time to corresponding file based on fileName
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     fstream file;
-    file.open(fileName);
+    file.open(fileName, std::ios_base::app);
     file << arrSize << "," << timeMS << "\n";
+    file.close();
 }
 
 //TOD implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
