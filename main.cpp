@@ -109,7 +109,7 @@ void cleanupFile(const char *fileName) {
 // - time of the sorting alg execution, provided by parameter 'unsigned long timeMS'
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
     ofstream myfile;
-    myfile.open(fileName, ios::app);
+    myfile.open(fileName, std::ios_base::app);
     myfile << arrSize << "," << timeMS << endl;
     myfile.close();
 
