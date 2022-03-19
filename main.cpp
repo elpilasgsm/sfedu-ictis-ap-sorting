@@ -121,16 +121,18 @@ void bubbleSort(int *arr, int size) {
 
 //TOD implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort
 void insertionSort(int *arr, int size) {
-    int i = 1;
-    while (i < size) {
-        int j = 1;
-        while (j > 0 && arr[j - 1] > arr[j]) {
-            swapp(&arr[j], &arr[j - 1]);
-            j -= 1;
-        }
-        i += 1;
-    };
+    for (int i = 1; i < size; i++)
+    {
+        int tmp = arr[i];
+        int j = i - 1;
 
+        while (j >= 0 && arr[j] > tmp)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = tmp;
+    }
 }
 
 /**
