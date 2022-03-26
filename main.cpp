@@ -175,32 +175,38 @@ namespace QuickSortNS {
 
 //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
     int partitioning(int *arr, int lo, int hi) {
-        int pivot;
-        for (int lower = lo, pivot = hi; lower < pivot;) {
+        int lower, pivot;
+
+        if (hi - lo < 1) {
+            return 0;
+        }
+
+        for (lower = lo, pivot = hi; lower < pivot;) {
             if (arr[lower] < arr[pivot]) {
                 ++lower;
-            } else {
+            } else
+            {
                 swap(&arr[pivot], &arr[pivot - 1]);
+
                 if (pivot - 1 != lower) {
                     swap(&arr[pivot], &arr[lower]);
                 }
+
                 --pivot;
             }
+
         }
-        return pivot;
+        partitioning(arr, lo, pivot - 1);
+        partitioning(arr, pivot + 1, hi);
+
+        return 0;
     }
 
 //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
     void quicksort(int *arr, int low, int high) {
-        int pivot;
-        if (high - low < 1) {
-            return;
-        }
-        pivot = partitioning(arr, low, high);
-        quicksort(arr, low, pivot - 1);
-        quicksort(arr, pivot + 1, high);
+        partitioning(arr, low, high);
     }
-
+}
     void quickSort(int *arr, int size) {
         QuickSortNS::quicksort(arr, 0, size - 1);
     }
@@ -231,19 +237,17 @@ namespace QuickSortNS {
         cleanupFile(algName);
         for (int i = 0; i < numOfSeries; i++) {
             int sizeOfArray = seriesSize[i];
-            time_point<system_clock> start = high_resolution_clock::now();
+            auto start = high_resolution_clock::now();
             int *arr = generateTestArray(sizeOfArray);
             sortAlg(arr, sizeOfArray);
             deleteArr(arr);
-            time_point<system_clock> stop = high_resolution_clock::now();
+            auto stop = high_resolution_clock::now();
             auto duration = duration_cast<milliseconds>(stop - start);
             saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
         }
     }
 
     int main() {
-
-
         int result = 0;
         result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Bubble", bubbleSort);
         result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Insertion", insertionSort);
@@ -260,4 +264,3 @@ namespace QuickSortNS {
 
         return 0;
     }
-}
