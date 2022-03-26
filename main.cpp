@@ -87,13 +87,20 @@ void swap(int *a1, int *a2) {
 // The function 'generateTestArray' should create new array with given #size and populate it with integer values.
 // The function should return pointer to the newly created array.
 int *generateTestArray(int size) {
-    //PUT YOUR CODE HERE
+    int *array = new int[size];
+    for (int i = 0; i < size; i++) {
+        array[i] = rand() % size;
+    }
+    return array;
 }
 
 //TODO implement a function to cleanup file before saving data there.
 // The method should cleanup the content of the file, provided by fileName
 void cleanupFile(const char *fileName) {
-    //PUT YOUR CODE HERE
+    ofstream myfile;
+    myfile.open(fileName);
+    myfile.clear();
+    myfile.close();
 }
 
 //TODO add timing about alg execution time to corresponding file based on *fileName
@@ -101,17 +108,31 @@ void cleanupFile(const char *fileName) {
 // - size of the array, provided by parameter 'int arrSize'
 // - time of the sorting alg execution, provided by parameter 'unsigned long timeMS'
 void saveExecutionTimeToFile(const char *fileName, int arrSize, unsigned long timeMS) {
-    //PUT YOUR CODE HERE
+    ofstream myfile;
+    myfile.open(fileName, std::ios_base::app);
+    myfile << arrSize << "," << timeMS << endl;
+    myfile.close();
+
 }
 
 //TODO implement Bubble Sort alg based on https://en.wikipedia.org/wiki/Bubble_sort
 void bubbleSort(int *arr, int size) {
-//PUT YOUR CODE HERE
+    for(int i = 0; i < size; ++i) {
+        for (int j = i + 1; j < size; ++j) {
+            if (arr[i] > arr[j]) {
+                swap(&arr[i], &arr[j]);
+            }
+        }
+    }
 }
 
 //TODO implement Insertion sort alg based on https://en.wikipedia.org/wiki/Insertion_sort
 void insertionSort(int *arr, int size) {
-//PUT YOUR CODE HERE
+    for(int i = 1; i < size; ++i ) {
+        for (int j = i; j > 0 && arr[j - 1] > arr[j]; --j) {
+            swap(&arr[j - 1], &arr[j]);
+        }
+    }
 }
 
 /**
@@ -122,16 +143,26 @@ namespace SelectionSortNS {
 
     void sort(int *arr, int size);
 
-    //TODO Implement function to find address of the minimum element of the array in the range [from, to]
-    int *min(int *arr, int from, int to) {
-        //PUT YOUR CODE HERE
+//TODO Implement function to find address of the minimum element of the array in the range [from, to]
+int *min(int *arr, int from, int to) {
+    int min = INT32_MAX;
+    int *minAddress = nullptr;
+    for (int i = from; i < to; i++) {
+        if (min > arr[i]) {
+            min = arr[i];
+            minAddress = &arr[i];
+        }
+    }
+    return minAddress;
+
     }
 
-    //TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
+//TODO implement Selection sorting algorithm based on https://en.wikipedia.org/wiki/Selection_sort
     void sort(int *arr, int size) {
-        //PUT YOUR CODE HERE
+        for (int i = 0; i < size; i++) {
+            swap(&arr[i], min(arr, i, size));
+        }
     }
-
 }
 
 /**
@@ -142,73 +173,94 @@ namespace QuickSortNS {
 
     void quicksort(int *arr, int low, int high);
 
-    //TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
+//TODO Implement function to partition the array based on https://en.wikipedia.org/wiki/Quicksort
     int partitioning(int *arr, int lo, int hi) {
-        //PUT YOUR CODE HERE
-    }
+        int lower, pivot;
 
-    //TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
-    void quicksort(int *arr, int low, int high) {
-        //PUT YOUR CODE HERE
-    }
-}
+        if (hi - lo < 1) {
+            return 0;
+        }
 
-void quickSort(int *arr, int size) {
-    QuickSortNS::quicksort(arr, 0, size - 1);
-}
+        for (lower = lo, pivot = hi; lower < pivot;) {
+            if (arr[lower] < arr[pivot]) {
+                ++lower;
+            } else
+            {
+                swap(&arr[pivot], &arr[pivot - 1]);
 
-void selectionSort(int *arr, int size) {
-    SelectionSortNS::sort(arr, size);
-}
+                if (pivot - 1 != lower) {
+                    swap(&arr[pivot], &arr[lower]);
+                }
 
+                --pivot;
+            }
 
-int performTest(int testData[], int expectedData[], int testDataSize, const char *algName,
-                void(*sortAlg)(int *arr, int size)) {
-    int *arr = newArrayFromTemplate(testData, testDataSize);
-    sortAlg(arr, testDataSize);
-    int check = testResult((int *) expectedData, arr, testDataSize);
-    deleteArr(arr);
+        }
+        partitioning(arr, lo, pivot - 1);
+        partitioning(arr, pivot + 1, hi);
 
-    if (check != 0) {
-        cerr << "[FAIL] " << algName << " is incorrect. Number of errors " << check << endl;
-        return 1;
-    } else {
-        cout << "[OK] " << algName << " passed Successfully" << endl;
         return 0;
     }
-}
 
-void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
-                             int numOfSeries) {
-    cleanupFile(algName);
-    for (int i = 0; i < numOfSeries; i++) {
-        int sizeOfArray = seriesSize[i];
-        time_point<system_clock> start = high_resolution_clock::now();
-        int *arr = generateTestArray(sizeOfArray);
-        sortAlg(arr, sizeOfArray);
+//TODO Implement function quick sort function based on https://en.wikipedia.org/wiki/Quicksort
+    void quicksort(int *arr, int low, int high) {
+        partitioning(arr, low, high);
+    }
+}
+    void quickSort(int *arr, int size) {
+        QuickSortNS::quicksort(arr, 0, size - 1);
+    }
+
+    void selectionSort(int *arr, int size) {
+        SelectionSortNS::sort(arr, size);
+    }
+
+
+    int performTest(int testData[], int expectedData[], int testDataSize, const char *algName,
+                    void(*sortAlg)(int *arr, int size)) {
+        int *arr = newArrayFromTemplate(testData, testDataSize);
+        sortAlg(arr, testDataSize);
+        int check = testResult((int *) expectedData, arr, testDataSize);
         deleteArr(arr);
-        time_point<system_clock> stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
-        saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
+
+        if (check != 0) {
+            cerr << "[FAIL] " << algName << " is incorrect. Number of errors " << check << endl;
+            return 1;
+        } else {
+            cout << "[OK] " << algName << " passed Successfully" << endl;
+            return 0;
+        }
     }
-}
 
-int main() {
-
-
-    int result = 0;
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Bubble", bubbleSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Insertion", insertionSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Selection", selectionSort);
-    result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Quick", quickSort);
-    if (result > 0) {
-        return result;
+    void performanceTestExecutor(const char *algName, void(*sortAlg)(int *arr, int size), const int *seriesSize,
+                                 int numOfSeries) {
+        cleanupFile(algName);
+        for (int i = 0; i < numOfSeries; i++) {
+            int sizeOfArray = seriesSize[i];
+            auto start = high_resolution_clock::now();
+            int *arr = generateTestArray(sizeOfArray);
+            sortAlg(arr, sizeOfArray);
+            deleteArr(arr);
+            auto stop = high_resolution_clock::now();
+            auto duration = duration_cast<milliseconds>(stop - start);
+            saveExecutionTimeToFile(algName, sizeOfArray, duration.count());
+        }
     }
-    //Here is performance test with data collection.
-    performanceTestExecutor("Bubble.csv", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Insertion.csv", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Selection.csv", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
-    performanceTestExecutor("Quick.csv", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
 
-    return 0;
-}
+    int main() {
+        int result = 0;
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Bubble", bubbleSort);
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Insertion", insertionSort);
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Selection", selectionSort);
+        result += performTest(TEST_ARRAY, CHECK_ARRAY, TEST_ARRAY_SIZE, "Quick", quickSort);
+        if (result > 0) {
+            return result;
+        }
+        //Here is performance test with data collection.
+        performanceTestExecutor("Bubble.csv", bubbleSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+        performanceTestExecutor("Insertion.csv", insertionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+        performanceTestExecutor("Selection.csv", selectionSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+        performanceTestExecutor("Quick.csv", quickSort, TEST_SERIES_SIZE, TEST_SERIES_NUM);
+
+        return 0;
+    }
